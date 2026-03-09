@@ -398,8 +398,9 @@
             showSpecialModal();
         }
 
-        // Check completion
-        if (openedGifts.length >= 9) {
+        // Check completion — only show overlay the very first time
+        if (openedGifts.length >= 9 && !localStorage.getItem('giftCompleteSeen')) {
+            localStorage.setItem('giftCompleteSeen', '1');
             setTimeout(function () {
                 var overlay = document.getElementById('gift-complete');
                 if (overlay) overlay.classList.remove('hidden');

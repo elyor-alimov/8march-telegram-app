@@ -5,7 +5,7 @@
     'use strict';
 
     // Paste your Google Apps Script deployment URL here:
-    var TRACKER_SCRIPT_URL = '';
+    var TRACKER_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw-C8_GiCAw3zH2qd8Uihplomgj1t9WZLRiIMY6r7sI5fhCGHmos-n-utDE8CAEIuCXeA/exec';
 
     function trackGameResult(name, score, coinsEarned, totalCoins) {
         if (!TRACKER_SCRIPT_URL) return;

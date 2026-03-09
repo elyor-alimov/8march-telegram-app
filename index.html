@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>8 Марта — Твой День! 💐</title>
+    <meta name="description" content="Telegram Mini App for International Women's Day — 101 reasons, gifts, games and prizes!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+    <!-- ===== SCREEN 1: LANGUAGE SELECT ===== -->
+    <div id="screen-lang" class="screen active">
+        <div class="card center-card">
+            <h2 class="card-title">Выберите язык<br>Tilni tanlang</h2>
+            <button id="btn-lang-ru" class="btn btn-primary lang-btn">🇷🇺 Русский</button>
+            <button id="btn-lang-uz" class="btn btn-primary lang-btn">🇺🇿 O'zbek</button>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 2: LOADING ===== -->
+    <div id="screen-loading" class="screen">
+        <div class="card center-card">
+            <h2 id="loading-title" class="card-title" data-i18n="loadingTitle">Загружаем волшебство...</h2>
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar-fill"></div>
+            </div>
+            <p id="loading-percent" class="loading-percent">0%</p>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 3: NAME ENTRY ===== -->
+    <div id="screen-name" class="screen">
+        <div class="card center-card">
+            <h2 class="card-title" data-i18n="nameTitle">8 Марта — Твой день!</h2>
+            <p class="card-subtitle" data-i18n="nameSubtitle">Как тебя зовут?</p>
+            <input type="text" id="input-name" class="pixel-input" maxlength="30" data-i18n-placeholder="namePlaceholder" placeholder="Введи имя...">
+            <button id="btn-name-submit" class="btn btn-primary" data-i18n="nameContinue">ПРОДОЛЖИТЬ</button>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 4: MAIN MENU ===== -->
+    <div id="screen-menu" class="screen">
+        <div class="menu-header">
+            <div class="floating-petals" id="floating-petals"></div>
+            <h1 class="menu-greeting" data-i18n="menuGreeting">С праздником!</h1>
+            <p class="menu-name" id="menu-user-name"></p>
+            <div class="menu-stats">
+                <span class="coin-display" id="menu-coins">🪙 0</span>
+                <button id="btn-music-toggle" class="btn btn-small music-btn" data-i18n="musicOn">🎵 Вкл. музыку</button>
+            </div>
+        </div>
+        <div class="menu-cards">
+            <div class="menu-card" id="card-reasons">
+                <span class="menu-card-icon">💌</span>
+                <div class="menu-card-text">
+                    <h3 data-i18n="menuReasons">101 причина</h3>
+                    <p data-i18n="menuReasonsDesc">Почему ты особенная</p>
+                </div>
+                <span class="menu-card-arrow">›</span>
+            </div>
+            <div class="menu-card" id="card-gift">
+                <span class="menu-card-icon">🎁</span>
+                <div class="menu-card-text">
+                    <h3 data-i18n="menuGift">Подарочная коробка</h3>
+                    <p data-i18n="menuGiftDesc">9 сюрпризов внутри</p>
+                </div>
+                <span class="menu-card-arrow">›</span>
+            </div>
+            <div class="menu-card" id="card-game">
+                <span class="menu-card-icon">🐱</span>
+                <div class="menu-card-text">
+                    <h3 data-i18n="menuGame">Kitty Runner</h3>
+                    <p data-i18n="menuGameDesc">Беги и собирай монетки</p>
+                </div>
+                <span class="menu-card-arrow">›</span>
+            </div>
+            <div class="menu-card" id="card-shop">
+                <span class="menu-card-icon">🏪</span>
+                <div class="menu-card-text">
+                    <h3 data-i18n="menuShop">Магазин подарков</h3>
+                    <p data-i18n="menuShopDesc">Обменяй монетки на призы</p>
+                </div>
+                <span class="menu-card-arrow">›</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 5a: INTRO REASONS ===== -->
+    <div id="screen-intro-reasons" class="screen">
+        <div class="card center-card">
+            <h2 class="card-title" data-i18n="introReasonsTitle">💌 101 причина</h2>
+            <p class="card-desc" data-i18n="introReasonsDesc">Мы собрали 101 причину, почему ты — потрясающая. Нажимай на карточки и открывай по одной!</p>
+            <button id="btn-go-reasons" class="btn btn-primary" data-i18n="introOpen">ОТКРЫТЬ</button>
+            <button id="btn-back-intro-reasons" class="btn btn-secondary" data-i18n="btnBack">НАЗАД</button>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 5b: INTRO GIFT ===== -->
+    <div id="screen-intro-gift" class="screen">
+        <div class="card center-card">
+            <h2 class="card-title" data-i18n="introGiftTitle">🎁 Подарочная коробка</h2>
+            <p class="card-desc" data-i18n="introGiftDesc">Внутри 9 сюрпризов — открой каждую коробочку и узнай, что внутри!</p>
+            <button id="btn-go-gift" class="btn btn-primary" data-i18n="introOpen">ОТКРЫТЬ</button>
+            <button id="btn-back-intro-gift" class="btn btn-secondary" data-i18n="btnBack">НАЗАД</button>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 5c: INTRO GAME ===== -->
+    <div id="screen-intro-game" class="screen">
+        <div class="card center-card">
+            <h2 class="card-title" data-i18n="introGameTitle">🐱 Kitty Runner</h2>
+            <p class="card-desc" data-i18n="introGameDesc">Помоги котику бежать и собирать монетки! Нажимай на экран, чтобы прыгать. Чем дальше — тем быстрее!</p>
+            <button id="btn-go-game" class="btn btn-primary" data-i18n="introPlay">ИГРАТЬ</button>
+            <button id="btn-back-intro-game" class="btn btn-secondary" data-i18n="btnBack">НАЗАД</button>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 6: 101 REASONS ===== -->
+    <div id="screen-reasons" class="screen">
+        <div class="section-header">
+            <button id="btn-back-reasons" class="btn btn-back">←</button>
+            <h2 class="section-title" data-i18n="reasonsTitle">101 причина</h2>
+            <span id="reasons-counter" class="counter">0/101</span>
+        </div>
+        <div id="reasons-grid" class="reasons-grid"></div>
+        <div id="reasons-complete" class="completion-overlay hidden">
+            <div class="completion-card">
+                <h2 data-i18n="reasonsComplete">Все 101 причина открыты! 🎉</h2>
+                <p data-i18n="reasonsCompleteDesc">Ты — невероятная!</p>
+                <button id="btn-reasons-complete" class="btn btn-primary" data-i18n="btnMenu">В МЕНЮ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 7: GIFT BOX ===== -->
+    <div id="screen-gift" class="screen">
+        <div class="section-header">
+            <button id="btn-back-gift" class="btn btn-back">←</button>
+            <h2 class="section-title" data-i18n="giftTitle">Подарочная коробка</h2>
+            <span id="gift-counter" class="counter">0/9</span>
+        </div>
+        <div id="gift-grid" class="gift-grid"></div>
+        <div id="gift-complete" class="completion-overlay hidden">
+            <div class="completion-card">
+                <h2 data-i18n="giftComplete">Все 9 подарков открыты! 🎉</h2>
+                <p data-i18n="giftCompleteDesc">С праздником!</p>
+                <button id="btn-gift-complete" class="btn btn-primary" data-i18n="btnMenu">В МЕНЮ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 8: GAME ===== -->
+    <div id="screen-game" class="screen">
+        <div class="game-header">
+            <button id="btn-back-game" class="btn btn-back">←</button>
+            <span id="game-score-display" class="game-score">⭐ 0</span>
+            <span id="game-coins-display" class="coin-display">🪙 0</span>
+        </div>
+        <div id="game-container" class="game-container">
+            <canvas id="game-canvas"></canvas>
+            <div id="game-tap-hint" class="tap-hint" data-i18n="gameTapHint">Нажми чтобы начать!</div>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 9: GAME OVER ===== -->
+    <div id="screen-gameover" class="screen">
+        <div class="card center-card gameover-card">
+            <h2 class="card-title star-pulse" data-i18n="gameOverTitle">Игра окончена!</h2>
+            <div class="gameover-stats">
+                <p><span data-i18n="gameOverScore">Очки:</span> <span id="gameover-score" class="accent-text">0</span></p>
+                <p><span data-i18n="gameOverCoins">Монетки:</span> <span id="gameover-coins" class="accent-text">🪙 0</span></p>
+                <p><span data-i18n="gameOverTotal">Всего монеток:</span> <span id="gameover-total" class="accent-text">🪙 0</span></p>
+            </div>
+            <button id="btn-play-again" class="btn btn-primary" data-i18n="gameOverPlayAgain">ИГРАТЬ СНОВА</button>
+            <button id="btn-gameover-shop" class="btn btn-secondary" data-i18n="gameOverShop">МАГАЗИН ПРИЗОВ</button>
+            <button id="btn-gameover-menu" class="btn btn-secondary" data-i18n="btnMenu">ГЛАВНОЕ МЕНЮ</button>
+        </div>
+    </div>
+
+    <!-- ===== SCREEN 10: PRIZE SHOP ===== -->
+    <div id="screen-shop" class="screen">
+        <div class="section-header">
+            <button id="btn-back-shop" class="btn btn-back">←</button>
+            <h2 class="section-title" data-i18n="shopTitle">Магазин призов</h2>
+            <span id="shop-coins" class="coin-display">🪙 0</span>
+        </div>
+        <div id="shop-list" class="shop-list"></div>
+    </div>
+
+    <!-- ===== MODAL: FLOWER (Bottom Sheet) ===== -->
+    <div id="modal-flower" class="modal-overlay hidden">
+        <div class="modal-sheet">
+            <button id="modal-flower-close" class="modal-close">✕</button>
+            <img id="modal-flower-img" class="modal-flower-img" src="" alt="Flower">
+            <h3 id="modal-flower-name" class="modal-flower-name"></h3>
+            <button id="modal-flower-toggle" class="btn btn-small" data-i18n="flowerToggle">Подробнее</button>
+            <p id="modal-flower-desc" class="modal-flower-desc hidden"></p>
+        </div>
+    </div>
+
+    <!-- ===== MODAL: SPECIAL REVEAL (Centered) ===== -->
+    <div id="modal-special" class="modal-overlay hidden">
+        <div class="modal-center">
+            <button id="modal-special-close" class="modal-close">✕</button>
+            <h3 class="modal-special-title star-pulse" data-i18n="specialTitle">Особый сюрприз! 💕</h3>
+            <video id="modal-special-video" class="modal-video" autoplay loop muted playsinline>
+                <source src="assets/video/cat_salute.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <!-- ===== MODAL: CLAIM (Bottom Sheet) ===== -->
+    <div id="modal-claim" class="modal-overlay hidden">
+        <div class="modal-sheet">
+            <button id="modal-claim-close" class="modal-close">✕</button>
+            <h3 id="modal-claim-title" class="modal-claim-title"></h3>
+            <p id="modal-claim-cost" class="modal-claim-cost"></p>
+            <a id="modal-claim-tg" class="btn btn-primary claim-link" href="https://t.me/yelohood" target="_blank" data-i18n="claimTelegram">📩 Telegram</a>
+            <a id="modal-claim-ig" class="btn btn-primary claim-link" href="https://instagram.com/yelohood" target="_blank" data-i18n="claimInstagram">📸 Instagram</a>
+            <button id="modal-claim-cancel" class="btn btn-secondary" data-i18n="claimCancel">ОТМЕНА</button>
+        </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- ===== BACKGROUND MUSIC ===== -->
+    <audio id="bg-music" loop preload="none">
+        <source src="assets/music/bg.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="i18n.js"></script>
+    <script src="reasons.js"></script>
+    <script src="tracker.js"></script>
+    <script src="game.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
